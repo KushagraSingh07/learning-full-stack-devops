@@ -1,4 +1,4 @@
-name: Build Application
+name: Build and Deploy
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -24,3 +24,22 @@ jobs:
 
       - name: Build Docker image
         run: docker build -t fullstack-app:latest .
+
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ubuntu
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            cd ~/learning-full-stack
+            git pull origin main
+            ./mvnw clean install -DskipTests
+            docker build -t fullstack-app:latest .
+            docker rm -f fullstack-app || true
+            docker run -d \
+              --name fullstack-app \
+              --network fullstack-net \
+              -p 8080:8080 \
+              -e SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/syscomz \
+              fullstack-app:latest
