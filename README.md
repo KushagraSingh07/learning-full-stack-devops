@@ -544,3 +544,4 @@ docker run -it --rm postgres:alpine psql \
 ---
 
 > 📝 *This project was built as part of a professional full-stack learning course covering Spring Boot, React, Docker, AWS, and CI/CD automation.*s
+CI/CD test from EC2
