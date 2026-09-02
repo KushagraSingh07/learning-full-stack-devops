@@ -1,16 +1,24 @@
 /* Import antd css styles  */
 @import 'antd/dist/reset.css';
 
+/* 🚨 CI/CD DEPLOYMENT TEST 🚨 */
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  border: 20px solid red !important;
+  background: yellow !important;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+body::before {
+  content: "🚨 CI/CD DEPLOYED 🚨";
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 25px;
+  background: red;
+  color: white;
+  font-size: 40px;
+  font-weight: bold;
+  text-align: center;
+  z-index: 99999;
 }
